@@ -492,7 +492,14 @@ class DecisionTreeRegressor:
         for feat_idx in feat_idxs:
             X_column = X[:, feat_idx]
             thresholds = np.unique(X_column)
-            thresholds = (thresholds[1:]-thresholds[:-1])/2
+            #====================================================
+            # The 2 criterion for differentiating categorical
+            # and continuous features is arbitrary. I picked
+            # it assuming all categorical data with more than 2
+            # categories are OneHot-encoded
+            #====================================================
+            if len(thresholds) > 2: 
+                thresholds = (thresholds[1:]+thresholds[:-1])/2
             
             for thr in thresholds:
                 if self.criterion == 'squared-error':
@@ -501,7 +508,7 @@ class DecisionTreeRegressor:
                     raise ValueError("Invalid criterion! Currently, only 'squared-error' allowed")
 
                 if squared_error < best_error:
-                    best_error = error
+                    best_error = squared_error
                     split_idx = feat_idx
                     split_threshold = thr
 
