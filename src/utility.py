@@ -1,5 +1,6 @@
 import numpy as np
-
+import matplotlib.pyplot as plt
+from matplotlib import colormaps
 def quicksort(X):
     '''
     Performs quick sort
@@ -24,4 +25,12 @@ def quicksort(X):
         return quicksort(left) + middle + quicksort(right)
 
 def sigmoid(X):
+    '''
+    Returns value of sigmoid function at X
+    '''
     return 1/(1+np.exp(-X))
+
+def softmax(X):
+    ''' Returns softmax function of X'''
+    return np.exp(X)/np.sum(np.exp(X))
+
