@@ -4,25 +4,34 @@ import pandas as pd
 class Perceptron:
     """
     A simple implementation of a single-layer Perceptron for binary and multiclass classification.
+    
+    Parameters
+    ----------
+    input_size : int
+        Number of features in the input.
+    output_size : int, optional
+        Number of output classes (default is 1 for binary classification).
+    learning_rate : float, optional
+        Step size for weight updates, by default 0.01.
+    epochs : int, optional
+        Number of iterations for training, by default 1000.
+    activation : str, optional
+        Activation function to use ("step", "sigmoid", or "softmax"), by default "step".
+    loss : str, optional
+        Loss function to use ("mse" or "binary_cross_entropy"), by default "mse".
+
+    Attributes
+    ----------
+    coeffs: np.ndarray
+        Model weights and biases
+
+    y_prob: np.ndarray
+        Predicted probabilities
     """
     def __init__(self, input_size: int, output_size: int = 1, learning_rate: float = 0.01, epochs: int = 1000, activation: str = "step", loss: str = "mse", random_seed: int = None) -> None:
         """
         Initializes the perceptron with random coefficients (weights and biases combined).
 
-        Parameters
-        ----------
-        input_size : int
-            Number of features in the input.
-        output_size : int, optional
-            Number of output classes (default is 1 for binary classification).
-        learning_rate : float, optional
-            Step size for weight updates, by default 0.01.
-        epochs : int, optional
-            Number of iterations for training, by default 1000.
-        activation : str, optional
-            Activation function to use ("step", "sigmoid", or "softmax"), by default "step".
-        loss : str, optional
-            Loss function to use ("mse" or "binary_cross_entropy"), by default "mse".
         """
         self.input_size = input_size + 1  # Adding one for the bias term
         self.output_size = output_size
